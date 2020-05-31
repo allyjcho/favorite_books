@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+</head>
+<body>
+    
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register/Log In</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'index.css' %}">
+</head>
+<body>
+    {% if messages %}
+    <ul class="messages">    
+    {% for message in messages %}    
+        <li>{{ message }}</li>    
+    {% endfor %}
+    </ul>
+    {% endif %}
+
+    <div class="login">
+        <h1>Register</h1>
+        <form action="/register" method="POST">
+            {% csrf_token%}
+        <table>
+                <tr>
+                    <th>First Name</th>
+                    <td><input type="text" name="fname"></td>
+                </tr>
+                <tr>
+                    <th>Last Name</th>
+                    <td><input type="text" name="lname"></td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td><input type="text" name="email"></td>
+                </tr>
+                <tr>
+                    <th>Password</th>
+                    <td><input type="password" name="pw"></td>
+                </tr>
+                <tr>
+                    <th>Confirm PW</th>
+                    <td><input type="password" name="confpw"></td>
+                </tr>
+        </table>
+        <br><input type="submit" name="Register"></td>
+        </form>
+    </div>
+
+    <div class="login">
+        <h1>Login</h1>
+        <form action="/login" method="POST">
+            {% csrf_token %}
+        <table>
+            <tr>
+                <th>Email</th>
+                <td><input type="text" name="email"></td>
+            </tr>
+            <tr>
+                <th>password</th>
+                <td><input type="password" name="pw"></td>
+            </tr>
+        </table>
+        <br><input type="submit" name="Log In">
+        </form>
+    </div>
+</body>
+</html>

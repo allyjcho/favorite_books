@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books</title>
+</head>
+<body>
+    
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'books.css' %}">
+</head>
+<body>
+    <ul id="header">
+        <li>Welcome, {{ request.session.name }}!</li>
+        <form action="/logout" method="POST">
+            {% csrf_token %}
+        <li><input type="submit" value="Logout"></li>
+        </form>
+    </ul>
+
+    <div id="add">
+        <h1>Add a Favorite Book</h1>
+        {% for message in messages %}    
+            <li>{{ message }}</li>    
+        {% endfor %}
+        <form action="/add_book" method="POST">
+            {% csrf_token %}
+        <table>
+            <tr>
+                <th>Title</th>
+                <td><input type="text" name="title"></td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td><textarea name="description" cols="18" rows="4"></textarea></td>
+            </tr>
+        </table>
+        <input type="submit" value="Add">
+        </form>
+    </div>
+
+    <h1>All Books</h1>
+    {% for books in all_books %}
+    <div id="books">
+        <p>{{book.title}}</p>
+        <p>{{book.description}}</p>
+
+        <form action="/favorite/{{book.id}}" method="POST">
+        {% csrf_token %}
+        <a href="/favorite/{{book.id}}">Add to Favorites</a>
+        </form>
+
+        {% if request.session.id == book.poster.id %}
+        <a href="/delete/{{book.id}}">Delete</a>
+        {% endif %}
+    </div>
+    {% endfor %}
+
+
+</body>
+</html>
